@@ -5,7 +5,7 @@ function FastVolume:Initialize()
 	-- Get saved variables, if there are any. If not, create them.
 	self.savedVariables = ZO_SavedVars:NewAccountWide("FastVolumeSavedVariables", 1, nil, FastVolume.Default)
     -- Hide the panel by default
-	local visibility = true
+	visibility = true
 	FastVolume:FVSetHidden(visibility)
 	-- Restore saved window state
     self:RestoreState()
