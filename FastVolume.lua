@@ -61,9 +61,14 @@ end
 
 -- Lock window position
 function FastVolume.Lock()
-	FastVolumeAnchor:SetHidden(true)
-	FastVolume.savedVariables.locked = true
+	FastVolume:SilentLock()
 	d("|cFF0000FastVolume|r has been locked. Type |c00FF00/fv unlock|r to move it.")
+end
+
+-- Lock window position
+function FastVolume.SilentLock()
+    FastVolumeAnchor:SetHidden(true)
+    FastVolume.savedVariables.locked = true
 end
 
 -- Unlock window position, allowing it to be moved
@@ -82,7 +87,7 @@ function FastVolume:RestoreState()
   
   -- Restore locked status
   if(self.savedVariables.locked == true) then
-    FastVolume.Lock()
+    FastVolume.SilentLock()
   end
   
   -- Restore window position
