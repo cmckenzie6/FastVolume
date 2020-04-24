@@ -2,8 +2,12 @@ FastVolume = {}
 FastVolume.name = "FastVolume"
  
 function FastVolume:Initialize()
+	-- Get saved variables, if there are any. If not, create them.
 	self.savedVariables = ZO_SavedVars:NewAccountWide("FastVolumeSavedVariables", 1, nil, FastVolume.Default)
-    local visibility = self.savedVariables.visibility
+    -- Hide the panel by default
+	local visibility = true
+	FastVolume:FVSetHidden(visibility)
+	-- Restore saved window state
     self:RestoreState()
 	
 	-- Register slash command
@@ -17,20 +21,71 @@ function FastVolume:Initialize()
 	FastVolumePanelToggle.tooltipText = "Double-click to toggle mute."
 	FastVolumePanelToggle:SetHandler("OnMouseEnter", function(self)
       ZO_Tooltips_ShowTextTooltip(self, TOP, self.tooltipText)
+	  FastVolume:TogglePanel()
     end)
     FastVolumePanelToggle:SetHandler("OnMouseExit", function(self)
        ZO_Tooltips_HideTextTooltip()
+    end)
+	
+	-- Mute button
+	FastVolumePanelToggle:SetHandler("OnMouseDoubleClick", function(self)
+      FastVolume:ToggleMute()
+    end)
+	
+	-- Panel display
+	FastVolumePanelBackdrop:SetHandler("OnMouseExit", function(self)
+      FastVolume:TogglePanel()
+    end)
+	
+	-- Anchor tooltip
+	FastVolumeAnchor.tooltipText = "Drag to reposition. Double-click to lock."
+	FastVolumeAnchor:SetHandler("OnMouseEnter", function(self)
+      ZO_Tooltips_ShowTextTooltip(self, TOP, self.tooltipText)
+    end)
+	FastVolumeAnchor:SetHandler("OnMouseExit", function(self)
+       ZO_Tooltips_HideTextTooltip()
+    end)
+	
+	-- Lock frame position when you double-click the anchor.
+	-- Renable it in settings
+	FastVolumeAnchor:SetHandler("OnMouseDoubleClick", function(self)
+		FastVolume.Lock()
     end)
 end
 
 -- Save window position
 function FastVolume.OnIndicatorMoveStop()
-  FastVolume.savedVariables.left = FastVolumePanel:GetLeft()
-  FastVolume.savedVariables.top = FastVolumePanel:GetTop()
+  FastVolume.savedVariables.left = FastVolumeAnchor:GetLeft()
+  FastVolume.savedVariables.top = FastVolumeAnchor:GetTop()
 end
 
--- Restore saved window position and visibility
+-- Lock window position
+function FastVolume.Lock()
+	FastVolumeAnchor:SetHidden(true)
+	FastVolume.savedVariables.locked = true
+	d("|cFF0000FastVolume|r has been locked. Type |c00FF00/fv unlock|r to move it.")
+end
+
+-- Unlock window position, allowing it to be moved
+function FastVolume.Unlock()
+	FastVolumeAnchor:SetHidden(false)
+	FastVolume.savedVariables.locked = false
+	d("|cFF0000FastVolume|r has been unlocked. Double-click the red anchor or type |c00FF00/fv lock|r to lock its position.")
+end
+
+-- Restore saved window position and muted state icon
 function FastVolume:RestoreState()
+  -- Restore muted icon
+  if(GetSetting(SETTING_TYPE_AUDIO, AUDIO_SETTING_AUDIO_ENABLED) == "0") then
+    FastVolumePanelToggle:SetTexture("FastVolume/media/muted.dds")
+  end
+  
+  -- Restore locked status
+  if(self.savedVariables.locked == true) then
+    FastVolume.Lock()
+  end
+  
+  -- Restore window position
   local left = self.savedVariables.left
   local top = self.savedVariables.top
   FastVolumeAnchor:ClearAnchors()
@@ -103,16 +158,14 @@ function FastVolume:ToggleMute()
   end
 end
 
--- Set volume to the selected value
-function FastVolume:SetMasterVolume(value)
-	d(zo_strformat("|cFF0000FastVolume|r set master volume to <<1>>.",value))
-	PlaySound(SOUNDS.DEFAULT_CLICK)
-	SetSetting(SETTING_TYPE_AUDIO, AUDIO_SETTING_AUDIO_VOLUME, value)
+-- Play a button click sound when setting the volume with a button
+function FastVolume:SetMasterVolumeWithButton(value)
+  PlaySound(SOUNDS.DEFAULT_CLICK)
+  SetMasterVolume(value)
 end
 
 -- Set visibility of volume buttons
 function FastVolume:FVSetHidden(state)
-	FastVolume.savedVariables.visibility = state
 	visibility = state
 	FastVolumePanelBackdrop:SetHidden(state)
 	FastVolumePanelButton0:SetHidden(state)
@@ -130,7 +183,11 @@ end
  
 function FastVolume.OnAddOnLoaded(event, addonName)
   if addonName == FastVolume.name then
-    FastVolume:Initialize()
+    -- Initialize the addon
+	FastVolume:Initialize()
+	
+	-- Cleanup
+	EVENT_MANAGER:UnregisterForEvent(FastVolume.name, EVENT_ADD_ON_LOADED)
   end
 end
 

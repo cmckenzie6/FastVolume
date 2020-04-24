@@ -1,58 +1,70 @@
 <GuiXml>
   <Controls>
-    <TopLevelControl name="FastVolumePanel" mouseEnabled="true" movable="true" clampedToScreen="true">
-      <Dimensions x="180" y="25" />
-      <Anchor point="MIDDLE" relativeTo="GuiRoot" relativePoint="CENTER" offsetY="-20" />
-	  
-	  <OnMoveStop>
+	<TopLevelControl name="FastVolumeAnchor" mouseEnabled="true" movable="true" clampedToScreen="true">
+	<Dimensions x="15" y="15" />
+	<Anchor point="MIDDLE" relativeTo="GuiRoot" relativePoint="CENTER" />
+	<OnMoveStop>
         FastVolume.OnIndicatorMoveStop()
       </OnMoveStop>
- 
+	<Controls>
+		<Backdrop name="$(parent)Backdrop" edgeColor="FFFFFF" centerColor="FF0000" alpha="0.8">
+			<Dimensions x="15" y="15" />
+			<Anchor point="TOPLEFT"  relativeTo="$(parent)" relativePoint="TOPLEFT"/>
+			<Edge edgeSize="1" />
+		</Backdrop>
+		<!--
+		<Texture name="$(parent)Button" inheritAlpha="true" verticalAlignment="MIDDLE" horizontalAlignment="RIGHT" ButtonState="BSTATE_NORMAL"  textureFile="/esoui/art/cursors/cursor_pan.dds">
+		  <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPRIGHT" />
+		  <Dimensions x="20" y="20" />
+		</Texture> -->
+	</Controls>
+	</TopLevelControl>
+    <TopLevelControl name="FastVolumePanel" clampedToScreen="true">
+      <Dimensions x="175" y="30" />
+      <Anchor point="LEFT" relativeTo="FastVolumeAnchor" relativePoint="RIGHT" offsetX="10" offssetY="3" />
+	  
       <Controls>
-	    <Backdrop name="$(parent)Backdrop" inherits="ZO_DefaultBackdrop" />
+	    <Backdrop name="$(parent)Backdrop" mouseEnabled="true" inherits="ZO_DefaultBackdrop" />
 				
-		<Button name="$(parent)Toggle" mouseEnabled="true" font="ZoFontGame" inheritAlpha="true" verticalAlignment="MIDDLE" horizontalAlignment="CENTER" text="|twidth:height:/esoui/art/voip/gamepad/gp_voip_listening.dds|t" ButtonState="BSTATE_NORMAL">
-		  <Anchor point="TOPLEFT"/>
-		  <Textures mouseOver="/esoui/art/buttons/radiobuttonuphighlight.dds" />
-		  <Dimensions x="30" y="20" />
-		  <OnClicked>FastVolume:TogglePanel()</OnClicked>
-		</Button>
+		<Texture name="$(parent)Toggle" mouseEnabled="true" font="ZoFontGame" inheritAlpha="true" verticalAlignment="MIDDLE" horizontalAlignment="CENTER" textureFile="/esoui/art/voip/gamepad/gp_voip_listening.dds">
+		  <Anchor point="LEFT" relativeTo="$(parent)" offsetX="-5"/>
+		  <Dimensions x="30" y="28" />
+		</Texture>
 		
 		<Button name="$(parent)Button0" font="ZoFontGame" inheritAlpha="true" verticalAlignment="MIDDLE" horizontalAlignment="CENTER" text="0" ButtonState="BSTATE_NORMAL">
-		  <Anchor point="TOPLEFT" relativeTo="$(parent)Toggle" relativePoint="TOPRIGHT" />
+		  <Anchor point="LEFT" relativeTo="$(parent)Toggle" relativePoint="RIGHT" />
 		  <Textures mouseOver="/esoui/art/buttons/generic_highlight.dds" />
 		  <Dimensions x="30" y="20" />
-		  <OnClicked>FastVolume:SetMasterVolume(0)</OnClicked>
+		  <OnClicked>FastVolume:SetMasterVolumeWithButton(0)</OnClicked>
 		</Button>
 		
 		<Button name="$(parent)Button25" font="ZoFontGame" inheritAlpha="true" verticalAlignment="MIDDLE" horizontalAlignment="CENTER" text="25" ButtonState="BSTATE_NORMAL">
 		  <Anchor point="TOPLEFT" relativeTo="$(parent)Button0" relativePoint="TOPRIGHT" />
 		  <Textures mouseOver="/esoui/art/buttons/generic_highlight.dds" />
 		  <Dimensions x="30" y="20" />
-		  <OnClicked>FastVolume:SetMasterVolume(25)</OnClicked>
+		  <OnClicked>FastVolume:SetMasterVolumeWithButton(25)</OnClicked>
 		</Button>
 		
 		<Button name="$(parent)Button50" font="ZoFontGame" inheritAlpha="true" verticalAlignment="MIDDLE" horizontalAlignment="CENTER" text="50" ButtonState="BSTATE_NORMAL">
 		  <Anchor point="TOPLEFT" relativeTo="$(parent)Button25" relativePoint="TOPRIGHT" />
 		  <Textures mouseOver="/esoui/art/buttons/generic_highlight.dds" />
 		  <Dimensions x="30" y="20" />
-		  <OnClicked>FastVolume:SetMasterVolume(50)</OnClicked>
+		  <OnClicked>FastVolume:SetMasterVolumeWithButton(50)</OnClicked>
 		</Button>
 		
 		<Button name="$(parent)Button75" font="ZoFontGame" inheritAlpha="true" verticalAlignment="MIDDLE" horizontalAlignment="CENTER" text="75" ButtonState="BSTATE_NORMAL">
 		  <Anchor point="TOPLEFT" relativeTo="$(parent)Button50" relativePoint="TOPRIGHT" />
 		  <Textures mouseOver="/esoui/art/buttons/generic_highlight.dds" />
 		  <Dimensions x="30" y="20" />
-		  <OnClicked>FastVolume:SetMasterVolume(75)</OnClicked>
+		  <OnClicked>FastVolume:SetMasterVolumeWithButton(75)</OnClicked>
 		</Button>
 		
 		<Button name="$(parent)Button100" font="ZoFontGame" inheritAlpha="true" verticalAlignment="MIDDLE" horizontalAlignment="CENTER" text="100" ButtonState="BSTATE_NORMAL">
 		  <Anchor point="TOPLEFT" relativeTo="$(parent)Button75" relativePoint="TOPRIGHT" />
 		  <Textures mouseOver="/esoui/art/buttons/generic_highlight.dds" />
 		  <Dimensions x="30" y="20" />
-		  <OnClicked>FastVolume:SetMasterVolume(100)</OnClicked>
-		</Button>
-		
+		  <OnClicked>FastVolume:SetMasterVolumeWithButton(100)</OnClicked>
+		</Button>		
       </Controls>
     </TopLevelControl>
   </Controls>
