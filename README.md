@@ -21,6 +21,7 @@ For help, see: https://www.esoui.com/forums/faq.php?faq=install#faq_howto_instal
   
   ![How to move the window](https://i.imgur.com/ZIoifdz.gif)
 </details>
+
 1. Ensure the window is unlocked by typing `/fv unlock`.
 1. Click and drag the red box until the window is in your desired position.
 1. Double click on the red box (or type `/fv lock`) to lock the window into place.
