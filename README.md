@@ -16,10 +16,14 @@ For help, see: https://www.esoui.com/forums/faq.php?faq=install#faq_howto_instal
 1. Double click on the headphone icon to toggle mute.
 
 ## How to move the window
+<details>
+  <summary>Visual Reference</summary>
+  
+  ![How to move the window](https://i.imgur.com/ZIoifdz.gif)
+</details>
 1. Ensure the window is unlocked by typing `/fv unlock`.
 1. Click and drag the red box until the window is in your desired position.
 1. Double click on the red box (or type `/fv lock`) to lock the window into place.
-![How to move the window](https://i.imgur.com/ZIoifdz.gif)
 
 ## Slash commands
 You can type `/fv` or `/fastvolume` for all commands
