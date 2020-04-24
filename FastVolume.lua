@@ -11,8 +11,9 @@ function FastVolume:Initialize()
     self:RestoreState()
 	
 	-- Register slash command
-	SLASH_COMMANDS["/fv"] = SetMasterVolume
-	
+	SLASH_COMMANDS["/fv"] = FVSlashCommand
+	SLASH_COMMANDS["/fastvolume"] = FVSlashCommand
+
 	--------------
 	-- BINDINGS --
 	--------------
