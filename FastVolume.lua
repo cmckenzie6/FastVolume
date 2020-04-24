@@ -10,7 +10,7 @@ function FastVolume:Initialize()
 	-- Restore saved window state
     self:RestoreState()
 	
-	-- Register slash command
+	-- Register slash commands
 	SLASH_COMMANDS["/fv"] = FVSlashCommand
 	SLASH_COMMANDS["/fastvolume"] = FVSlashCommand
 
@@ -48,32 +48,32 @@ function FastVolume:Initialize()
     end)
 	
 	-- Lock frame position when you double-click the anchor.
-	-- Renable it in settings
+	-- Renable it using the /fv unlock command
 	FastVolumeAnchor:SetHandler("OnMouseDoubleClick", function(self)
-		FastVolume.Lock()
+		FastVolume:Lock()
     end)
 end
 
 -- Save window position
-function FastVolume.OnIndicatorMoveStop()
+function FastVolume:OnIndicatorMoveStop()
   FastVolume.savedVariables.left = FastVolumeAnchor:GetLeft()
   FastVolume.savedVariables.top = FastVolumeAnchor:GetTop()
 end
 
 -- Lock window position
-function FastVolume.Lock()
+function FastVolume:Lock()
 	FastVolume:SilentLock()
 	d("|cFF0000FastVolume|r has been locked. Type |c00FF00/fv unlock|r to move it.")
 end
 
 -- Lock window position
-function FastVolume.SilentLock()
+function FastVolume:SilentLock()
     FastVolumeAnchor:SetHidden(true)
     FastVolume.savedVariables.locked = true
 end
 
 -- Unlock window position, allowing it to be moved
-function FastVolume.Unlock()
+function FastVolume:Unlock()
 	FastVolumeAnchor:SetHidden(false)
 	FastVolume.savedVariables.locked = false
 	d("|cFF0000FastVolume|r has been unlocked. Double-click the red anchor or type |c00FF00/fv lock|r to lock its position.")
@@ -88,7 +88,7 @@ function FastVolume:RestoreState()
   
   -- Restore locked status
   if(self.savedVariables.locked == true) then
-    FastVolume.SilentLock()
+    FastVolume:SilentLock()
   end
   
   -- Restore window position
@@ -137,7 +137,7 @@ function FVSlashCommand(--[[optional]]option)
         d(zo_strformat("|cFF0000FastVolume|r |c00FF00Error:|r <<1>> is not a valid volume level. Type /fv [0-100] to set the volume to a given level.",options[1]))
     else
         -- Set the volume to the given value
-        SetMasterVolume(tonumber(options[1]))
+        FastVolume:SetMasterVolume(tonumber(options[1]))
     end
 end
 
@@ -151,7 +151,7 @@ function FastVolume:PrintHelp()
 end
 
 -- Set volume to the specified value
-function SetMasterVolume(option)
+function FastVolume:SetMasterVolume(option)
 	if (option >= 0 and option <= 100) then
 	  d(zo_strformat("|cFF0000FastVolume|r set master volume to <<1>>.",option))
 	  SetSetting(SETTING_TYPE_AUDIO, AUDIO_SETTING_AUDIO_VOLUME, option)
