@@ -177,7 +177,38 @@ end
 -- Play a button click sound when setting the volume with a button
 function FastVolume:SetMasterVolumeWithButton(value)
   PlaySound(SOUNDS.DEFAULT_CLICK)
-  SetMasterVolume(value)
+  FastVolume:SetSelectedButtonTexture(value)
+  FastVolume:SetMasterVolume(value)
+end
+
+-- Use a texture to mark which button is currently selected
+function FastVolume:SetSelectedButtonTexture(value)
+    local selected_texture = "/esoui/art/buttons/32x32button_genericmouseover.dds"
+    local blank_texture = "/esoui/art/screens_app/interactkeyframe_center.dds"
+
+--/esoui/art/inventory/inventory_slot.dds
+--/esoui/art/buttons/32x32button_genericmouseover.dds
+--
+
+    -- Remove any set textures
+    FastVolumePanelButton0:SetNormalTexture(blank_texture)
+    FastVolumePanelButton25:SetNormalTexture(blank_texture)
+    FastVolumePanelButton50:SetNormalTexture(blank_texture)
+    FastVolumePanelButton75:SetNormalTexture(blank_texture)
+    FastVolumePanelButton100:SetNormalTexture(blank_texture)
+
+    -- Add the special texture to the selected button
+    if value == 0 then
+        FastVolumePanelButton0:SetNormalTexture(selected_texture)
+    elseif value == 25 then
+        FastVolumePanelButton25:SetNormalTexture(selected_texture)
+    elseif value == 50 then
+        FastVolumePanelButton50:SetNormalTexture(selected_texture)
+    elseif value == 75 then
+        FastVolumePanelButton75:SetNormalTexture(selected_texture)
+    elseif value == 100 then
+        FastVolumePanelButton100:SetNormalTexture(selected_texture)
+    end
 end
 
 -- Set visibility of volume buttons
