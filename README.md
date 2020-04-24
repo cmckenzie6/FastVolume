@@ -5,7 +5,9 @@ Do you like to watch YouTube or listen to music while playing ESO? Frequently fi
 Introducing **FastVolume**: quickly adjust the master volume without opening your game settings.
 
 # Installation
-https://www.esoui.com/forums/faq.php?faq=install#faq_howto_install
+Download via [ESOUI](https://www.esoui.com/downloads/info2598-FastVolume.html) or [Minion](https://minion.mmoui.com/).
+
+For help, see: https://www.esoui.com/forums/faq.php?faq=install#faq_howto_install
 
 # Usage
 ## General
