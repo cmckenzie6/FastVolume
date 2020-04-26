@@ -29,6 +29,7 @@
 							<Dimensions x="30" y="28" />
 							<Textures normal="/esoui/art/voip/gamepad/gp_voip_listening.dds"/>
 							<OnClicked>FastVolume:TogglePanel()</OnClicked>
+							<OnMouseDoubleClick>FastVolume:ToggleMute()</OnMouseDoubleClick>
 						</Button>
 
 						<Button name="$(parent)Button0" font="ZoFontGame" inheritAlpha="true" verticalAlignment="MIDDLE" horizontalAlignment="CENTER" text="0" ButtonState="BSTATE_NORMAL">

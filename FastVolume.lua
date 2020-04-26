@@ -58,8 +58,8 @@ end
 
 -- Save window position
 function FastVolume:OnIndicatorMoveStop()
-  FastVolume.savedVariables.left = FastVolumeAnchor:GetLeft()
-  FastVolume.savedVariables.top = FastVolumeAnchor:GetTop()
+    FastVolume.savedVariables.left = FastVolumeAnchor:GetLeft()
+    FastVolume.savedVariables.top = FastVolumeAnchor:GetTop()
 end
 
 -- Lock window position
@@ -83,23 +83,23 @@ end
 
 -- Restore saved window position and muted state icon
 function FastVolume:RestoreState()
-  -- Restore muted icon
-  if(GetSetting(SETTING_TYPE_AUDIO, AUDIO_SETTING_AUDIO_ENABLED) == "0") then
-    FastVolumeSubPanelToggle:SetNormalTexture("FastVolume/media/muted.dds")
-  end
-  -- Restore visibility
-  FastVolume:FVSetHidden(self.savedVariables.visibility)
-  
-  -- Restore locked status
-  if(self.savedVariables.locked == true) then
-    FastVolume:SilentLock()
-  end
-  
-  -- Restore window position
-  local left = self.savedVariables.left
-  local top = self.savedVariables.top
-  FastVolumeAnchor:ClearAnchors()
-  FastVolumeAnchor:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
+    -- Restore muted icon
+    if(GetSetting(SETTING_TYPE_AUDIO, AUDIO_SETTING_AUDIO_ENABLED) == "0") then
+        FastVolumeSubPanelToggle:SetNormalTexture("FastVolume/media/muted.dds")
+    end
+    -- Restore visibility
+    FastVolume:FVSetHidden(self.savedVariables.visibility)
+
+    -- Restore locked status
+    if(self.savedVariables.locked == true) then
+        FastVolume:SilentLock()
+    end
+
+    -- Restore window position
+    local left = self.savedVariables.left
+    local top = self.savedVariables.top
+    FastVolumeAnchor:ClearAnchors()
+    FastVolumeAnchor:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
 end
 
 --[[
@@ -157,32 +157,32 @@ end
 -- Set volume to the specified value
 function FastVolume:SetMasterVolume(option)
 	if (option >= 0 and option <= 100) then
-	  d(zo_strformat("|cFF0000FastVolume|r set master volume to <<1>>.",option))
-	  SetSetting(SETTING_TYPE_AUDIO, AUDIO_SETTING_AUDIO_VOLUME, option)
-	else
-	  -- Handle numbers outside of the valid range
-	  d(zo_strformat("|cFF0000FastVolume|r |c00FF00Error:|r <<1>> is not a valid volume level. The volume level must be an integer between 0 and 100.",option))
+        d(zo_strformat("|cFF0000FastVolume|r set master volume to <<1>>.",option))
+        SetSetting(SETTING_TYPE_AUDIO, AUDIO_SETTING_AUDIO_VOLUME, option)
+    else
+        -- Handle numbers outside of the valid range
+        d(zo_strformat("|cFF0000FastVolume|r |c00FF00Error:|r <<1>> is not a valid volume level. The volume level must be an integer between 0 and 100.",option))
 	end
 end
 
 -- Toggle muted state
 function FastVolume:ToggleMute()
-  if(GetSetting(SETTING_TYPE_AUDIO, AUDIO_SETTING_AUDIO_ENABLED) == "1") then
-    FastVolumeSubPanelToggle:SetNormalTexture("FastVolume/media/muted.dds")
-    SetSetting(SETTING_TYPE_AUDIO, AUDIO_SETTING_AUDIO_ENABLED, "0")
-	d("|cFF0000FastVolume|r mute ON.")
-  else
-    SetSetting(SETTING_TYPE_AUDIO, AUDIO_SETTING_AUDIO_ENABLED, "1")
-	FastVolumeSubPanelToggle:SetNormalTexture("/esoui/art/voip/gamepad/gp_voip_listening.dds")
-	d("|cFF0000FastVolume|r mute OFF.")
-  end
+    if(GetSetting(SETTING_TYPE_AUDIO, AUDIO_SETTING_AUDIO_ENABLED) == "1") then
+        FastVolumeSubPanelToggle:SetNormalTexture("FastVolume/media/muted.dds")
+        SetSetting(SETTING_TYPE_AUDIO, AUDIO_SETTING_AUDIO_ENABLED, "0")
+        d("|cFF0000FastVolume|r mute ON.")
+    else
+        SetSetting(SETTING_TYPE_AUDIO, AUDIO_SETTING_AUDIO_ENABLED, "1")
+        FastVolumeSubPanelToggle:SetNormalTexture("/esoui/art/voip/gamepad/gp_voip_listening.dds")
+        d("|cFF0000FastVolume|r mute OFF.")
+    end
 end
 
 -- Play a button click sound when setting the volume with a button
 function FastVolume:SetMasterVolumeWithButton(value)
-  PlaySound(SOUNDS.DEFAULT_CLICK)
-  FastVolume:SetSelectedButtonTexture(value)
-  FastVolume:SetMasterVolume(value)
+    PlaySound(SOUNDS.DEFAULT_CLICK)
+    FastVolume:SetSelectedButtonTexture(value)
+    FastVolume:SetMasterVolume(value)
 end
 
 -- Use a texture to mark which button is currently selected
@@ -230,13 +230,13 @@ function FastVolume:TogglePanel()
 end
  
 function FastVolume.OnAddOnLoaded(event, addonName)
-  if addonName == FastVolume.name then
-    -- Initialize the addon
-	FastVolume:Initialize()
-	
-	-- Cleanup
-	EVENT_MANAGER:UnregisterForEvent(FastVolume.name, EVENT_ADD_ON_LOADED)
-  end
+    if addonName == FastVolume.name then
+        -- Initialize the addon
+        FastVolume:Initialize()
+
+        -- Cleanup
+        EVENT_MANAGER:UnregisterForEvent(FastVolume.name, EVENT_ADD_ON_LOADED)
+    end
 end
 
 EVENT_MANAGER:RegisterForEvent(FastVolume.name, EVENT_ADD_ON_LOADED, FastVolume.OnAddOnLoaded)
