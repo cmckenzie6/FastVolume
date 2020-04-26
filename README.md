@@ -1,4 +1,4 @@
-![FastVolume](https://i.imgur.com/0H7lcwr.gif)
+![FastVolume](https://raw.githubusercontent.com/cmckenzie6/FastVolume/master/web/fastvolume.gif)
 # FastVolume
 Do you like to watch YouTube or listen to music while playing ESO? Frequently find yourself fiddling with the in-game sound settings or volume mixer trying to get the perfect balance?
 
@@ -19,7 +19,7 @@ For help, see: https://www.esoui.com/forums/faq.php?faq=install#faq_howto_instal
 <details>
   <summary>Visual Reference</summary>
   
-  ![How to move the window](https://i.imgur.com/ZIoifdz.gif)
+  ![How to move the window](https://raw.githubusercontent.com/cmckenzie6/FastVolume/master/web/fastvolume-move.gif)
 </details>
 
 1. Ensure the window is unlocked by typing `/fv unlock`.
