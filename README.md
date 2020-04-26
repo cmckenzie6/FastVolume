@@ -12,8 +12,8 @@ For help, see: https://www.esoui.com/forums/faq.php?faq=install#faq_howto_instal
 # Usage
 ## General
 1. Click on the headphone icon to show the volume buttons.
-1. Click on a button to instantly set the game master volume to that level.
-1. Double click on the headphone icon to toggle mute.
+2. Click on a button to instantly set the game master volume to that level.
+3. Double click on the headphone icon to toggle mute.
 
 ## How to move the window
 <details>
@@ -23,8 +23,8 @@ For help, see: https://www.esoui.com/forums/faq.php?faq=install#faq_howto_instal
 </details>
 
 1. Ensure the window is unlocked by typing `/fv unlock`.
-1. Click and drag the red box until the window is in your desired position.
-1. Double click on the red box (or type `/fv lock`) to lock the window into place.
+2. Click and drag the red box until the window is in your desired position.
+3. Double click on the red box (or type `/fv lock`) to lock the window into place.
 
 ## Slash commands
 You can type `/fv` or `/fastvolume` for all commands
