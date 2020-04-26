@@ -132,6 +132,7 @@ function FVSlashCommand(--[[optional]]option)
     else
         -- Set the volume to the given value
         FastVolume:SetMasterVolume(tonumber(options[1]))
+        FastVolume:SetSelectedButtonTexture(tonumber(options[1]))
     end
 end
 
