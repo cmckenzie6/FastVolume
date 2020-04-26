@@ -29,16 +29,6 @@ function FastVolume:Initialize()
     FastVolumeSubPanelToggle:SetHandler("OnMouseExit", function(self)
        ZO_Tooltips_HideTextTooltip()
     end)
-	
-	-- Mute button
-	FastVolumeSubPanelToggle:SetHandler("OnMouseDoubleClick", function(self)
-      FastVolume:ToggleMute()
-    end)
-
-    -- Toggle visibility
-    FastVolumeSubPanelToggle:SetHandler("OnClicked", function(self)
-        FastVolume:TogglePanel()
-    end)
 
 	-- Anchor tooltip
 	FastVolumeAnchor.tooltipText = "Drag to reposition. Double-click to lock."
