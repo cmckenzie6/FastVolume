@@ -41,4 +41,4 @@ You can type `/fv` or `/fastvolume` for all commands
 ```
 
 # Thanks
-Special thanks to those who contributed to the [Writing your first addon](https://wiki.esoui.com/Writing_your_first_addon) guide at ESOUI Wiki.
+Special thanks to those who contributed to the ESOUI Wiki and everyone at ESOUI Gitter.
