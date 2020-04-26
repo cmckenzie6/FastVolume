@@ -15,36 +15,33 @@ function FastVolume:Initialize()
 	SLASH_COMMANDS["/fastvolume"] = FVSlashCommand
 
     -- Hide the addon when a different HUD scene occurs
-    local fragmentFastVolumeAnchor = ZO_HUDFadeSceneFragment:New(FastVolumeAnchor, nil, 0)
-    HUD_SCENE:AddFragment(fragmentFastVolumeAnchor)
-    HUD_UI_SCENE:AddFragment(fragmentFastVolumeAnchor)
-    local fragmentFastVolumePanel = ZO_HUDFadeSceneFragment:New(FastVolumePanel, nil, 0)
-    HUD_SCENE:AddFragment(fragmentFastVolumePanel)
-    HUD_UI_SCENE:AddFragment(fragmentFastVolumePanel)
+    local fragmentFastVolume = ZO_HUDFadeSceneFragment:New(FastVolumePanel, nil, 0)
+    HUD_SCENE:AddFragment(fragmentFastVolume)
+    HUD_UI_SCENE:AddFragment(fragmentFastVolume)
 
 	--------------
 	-- BINDINGS --
 	--------------
 	
 	-- Mute tooltip
-	FastVolumePanelToggle.tooltipText = "Double-click to toggle mute."
-	FastVolumePanelToggle:SetHandler("OnMouseEnter", function(self)
+	FastVolumeSubPanelToggle.tooltipText = "Double-click to toggle mute."
+	FastVolumeSubPanelToggle:SetHandler("OnMouseEnter", function(self)
       ZO_Tooltips_ShowTextTooltip(self, TOP, self.tooltipText)
     end)
-    FastVolumePanelToggle:SetHandler("OnMouseExit", function(self)
+    FastVolumeSubPanelToggle:SetHandler("OnMouseExit", function(self)
        ZO_Tooltips_HideTextTooltip()
     end)
 	
 	-- Mute button
-	FastVolumePanelToggle:SetHandler("OnMouseDoubleClick", function(self)
+	FastVolumeSubPanelToggle:SetHandler("OnMouseDoubleClick", function(self)
       FastVolume:ToggleMute()
     end)
-	
-	-- Panel display
-	FastVolumePanelBackdrop:SetHandler("OnMouseExit", function(self)
-      FastVolume:TogglePanel()
+
+    -- Toggle visibility
+    FastVolumeSubPanelToggle:SetHandler("OnClicked", function(self)
+        FastVolume:TogglePanel()
     end)
-	
+
 	-- Anchor tooltip
 	FastVolumeAnchor.tooltipText = "Drag to reposition. Double-click to lock."
 	FastVolumeAnchor:SetHandler("OnMouseEnter", function(self)
@@ -90,7 +87,7 @@ end
 function FastVolume:RestoreState()
   -- Restore muted icon
   if(GetSetting(SETTING_TYPE_AUDIO, AUDIO_SETTING_AUDIO_ENABLED) == "0") then
-    FastVolumePanelToggle:SetTexture("FastVolume/media/muted.dds")
+    FastVolumeSubPanelToggle:SetTexture("FastVolume/media/muted.dds")
   end
   
   -- Restore locked status
@@ -171,12 +168,12 @@ end
 -- Toggle muted state
 function FastVolume:ToggleMute()
   if(GetSetting(SETTING_TYPE_AUDIO, AUDIO_SETTING_AUDIO_ENABLED) == "1") then
-    FastVolumePanelToggle:SetTexture("FastVolume/media/muted.dds")
+    FastVolumeSubPanelToggle:SetNormalTexture("FastVolume/media/muted.dds")
     SetSetting(SETTING_TYPE_AUDIO, AUDIO_SETTING_AUDIO_ENABLED, "0")
 	d("|cFF0000FastVolume|r mute ON.")
   else
     SetSetting(SETTING_TYPE_AUDIO, AUDIO_SETTING_AUDIO_ENABLED, "1")
-	FastVolumePanelToggle:SetTexture("/esoui/art/voip/gamepad/gp_voip_listening.dds")
+	FastVolumeSubPanelToggle:SetNormalTexture("/esoui/art/voip/gamepad/gp_voip_listening.dds")
 	d("|cFF0000FastVolume|r mute OFF.")
   end
 end
@@ -198,35 +195,35 @@ function FastVolume:SetSelectedButtonTexture(value)
 --
 
     -- Remove any set textures
-    FastVolumePanelButton0:SetNormalTexture(blank_texture)
-    FastVolumePanelButton25:SetNormalTexture(blank_texture)
-    FastVolumePanelButton50:SetNormalTexture(blank_texture)
-    FastVolumePanelButton75:SetNormalTexture(blank_texture)
-    FastVolumePanelButton100:SetNormalTexture(blank_texture)
+    FastVolumeSubPanelButton0:SetNormalTexture(blank_texture)
+    FastVolumeSubPanelButton25:SetNormalTexture(blank_texture)
+    FastVolumeSubPanelButton50:SetNormalTexture(blank_texture)
+    FastVolumeSubPanelButton75:SetNormalTexture(blank_texture)
+    FastVolumeSubPanelButton100:SetNormalTexture(blank_texture)
 
     -- Add the special texture to the selected button
     if value == 0 then
-        FastVolumePanelButton0:SetNormalTexture(selected_texture)
+        FastVolumeSubPanelButton0:SetNormalTexture(selected_texture)
     elseif value == 25 then
-        FastVolumePanelButton25:SetNormalTexture(selected_texture)
+        FastVolumeSubPanelButton25:SetNormalTexture(selected_texture)
     elseif value == 50 then
-        FastVolumePanelButton50:SetNormalTexture(selected_texture)
+        FastVolumeSubPanelButton50:SetNormalTexture(selected_texture)
     elseif value == 75 then
-        FastVolumePanelButton75:SetNormalTexture(selected_texture)
+        FastVolumeSubPanelButton75:SetNormalTexture(selected_texture)
     elseif value == 100 then
-        FastVolumePanelButton100:SetNormalTexture(selected_texture)
+        FastVolumeSubPanelButton100:SetNormalTexture(selected_texture)
     end
 end
 
 -- Set visibility of volume buttons
 function FastVolume:FVSetHidden(state)
 	visibility = state
-	FastVolumePanelBackdrop:SetHidden(state)
-	FastVolumePanelButton0:SetHidden(state)
-	FastVolumePanelButton25:SetHidden(state)
-	FastVolumePanelButton50:SetHidden(state)
-	FastVolumePanelButton75:SetHidden(state)
-	FastVolumePanelButton100:SetHidden(state)
+	FastVolumeSubPanelBackdrop:SetHidden(state)
+	FastVolumeSubPanelButton0:SetHidden(state)
+	FastVolumeSubPanelButton25:SetHidden(state)
+	FastVolumeSubPanelButton50:SetHidden(state)
+	FastVolumeSubPanelButton75:SetHidden(state)
+	FastVolumeSubPanelButton100:SetHidden(state)
 end
 
 -- Toggle volume button visibility
