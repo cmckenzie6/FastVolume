@@ -4,9 +4,7 @@ FastVolume.name = "FastVolume"
 function FastVolume:Initialize()
 	-- Get saved variables, if there are any. If not, create them.
 	self.savedVariables = ZO_SavedVars:NewAccountWide("FastVolumeSavedVariables", 1, nil, FastVolume.Default)
-    -- Hide the panel by default
-	visibility = true
-	FastVolume:FVSetHidden(visibility)
+
 	-- Restore saved window state
     self:RestoreState()
 	
@@ -89,6 +87,8 @@ function FastVolume:RestoreState()
   if(GetSetting(SETTING_TYPE_AUDIO, AUDIO_SETTING_AUDIO_ENABLED) == "0") then
     FastVolumeSubPanelToggle:SetTexture("FastVolume/media/muted.dds")
   end
+  -- Restore visibility
+  FastVolume:FVSetHidden(self.savedVariables.visibility)
   
   -- Restore locked status
   if(self.savedVariables.locked == true) then
@@ -217,7 +217,8 @@ end
 
 -- Set visibility of volume buttons
 function FastVolume:FVSetHidden(state)
-	visibility = state
+    FastVolume.savedVariables.visibility = state
+    visibility = state
 	FastVolumeSubPanelBackdrop:SetHidden(state)
 	FastVolumeSubPanelButton0:SetHidden(state)
 	FastVolumeSubPanelButton25:SetHidden(state)
