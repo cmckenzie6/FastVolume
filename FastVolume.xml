@@ -4,28 +4,28 @@
 			<Dimensions />
 			<Anchor point="MIDDLE" relativeTo="GuiRoot" relativePoint="CENTER" />
 			<Controls>
-				<Control name="FastVolumeAnchor" mouseEnabled="true" movable="true">
-					<Dimensions x="15" y="15" />
+				<Control name="FastVolumeAnchor" mouseEnabled="true" movable="true" level="2">
+					<Dimensions x="184" y="38" />
 					<Anchor point="MIDDLE" relativeTo="FastVolume" relativePoint="CENTER" />
 					<OnMoveStop>
 						FastVolume:OnIndicatorMoveStop()
 					</OnMoveStop>
 					<Controls>
 						<Backdrop name="$(parent)Backdrop" edgeColor="FFFFFF" centerColor="FF0000" alpha="0.8">
-							<Dimensions x="15" y="15" />
+							<Dimensions x="184" y="38" />
 							<Anchor point="TOPLEFT"  relativeTo="$(parent)" relativePoint="TOPLEFT"/>
 							<Edge edgeSize="1" />
 						</Backdrop>
 					</Controls>
 				</Control>
-				<Control name ="FastVolumeSubPanel">
-					<Dimensions x="175" y="30" />
-					<Anchor point="LEFT" relativeTo="FastVolumeAnchor" relativePoint="RIGHT" offsetX="10" offssetY="3" />
+				<Control name="FastVolumeSubPanel" level="1">
+					<Dimensions x="170" y="25" />
+					<Anchor point="LEFT" relativeTo="FastVolumeAnchor" relativePoint="LEFT" offsetX="8" offsetY="0" />
 					<Controls>
 						<Backdrop name="$(parent)Backdrop" inherits="ZO_DefaultBackdrop" />
 
 						<Button name="$(parent)Toggle" mouseEnabled="true" inheritAlpha="true" verticalAlignment="MIDDLE" horizontalAlignment="CENTER">
-							<Anchor point="LEFT" relativeTo="$(parent)" offsetX="-5"/>
+							<Anchor point="LEFT" relativeTo="$(parent)" offsetX="-6"/>
 							<Dimensions x="30" y="28" />
 							<Textures normal="/esoui/art/voip/gamepad/gp_voip_listening.dds"/>
 							<OnClicked>FastVolume:TogglePanel()</OnClicked>
