@@ -1,5 +1,7 @@
 FastVolume = {}
 FastVolume.name = "FastVolume"
+
+doubleClick = false
  
 function FastVolume:Initialize()
 	-- Get saved variables, if there are any. If not, create them.
@@ -20,7 +22,24 @@ function FastVolume:Initialize()
 	--------------
 	-- BINDINGS --
 	--------------
-	
+
+    -- Click to toggle visibility
+    FastVolumeSubPanelToggle:SetHandler("OnClicked", function(self)
+        -- If a second click doesn't come within 300 ms, consider it a single click
+        zo_callLater(function ()
+            FastVolume:TrySingleClick()
+        end, 300)
+        zo_callLater(function ()
+            doubleClick = false
+        end, 500)
+    end)
+
+    -- Double click to mute
+    FastVolumeSubPanelToggle:SetHandler("OnMouseDoubleClick", function(self)
+        doubleClick = true
+        FastVolume:ToggleMute()
+    end)
+
 	-- Mute tooltip
 	FastVolumeSubPanelToggle.tooltipText = "Double-click to toggle mute."
 	FastVolumeSubPanelToggle:SetHandler("OnMouseEnter", function(self)
@@ -44,6 +63,12 @@ function FastVolume:Initialize()
 	FastVolumeAnchor:SetHandler("OnMouseDoubleClick", function(self)
 		FastVolume:Lock()
     end)
+end
+
+function FastVolume:TrySingleClick()
+    if (doubleClick == false) then
+        FastVolume:TogglePanel()
+    end
 end
 
 -- Save window position
