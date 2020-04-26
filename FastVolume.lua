@@ -14,6 +14,14 @@ function FastVolume:Initialize()
 	SLASH_COMMANDS["/fv"] = FVSlashCommand
 	SLASH_COMMANDS["/fastvolume"] = FVSlashCommand
 
+    -- Hide the addon when a different HUD scene occurs
+    local fragmentFastVolumeAnchor = ZO_HUDFadeSceneFragment:New(FastVolumeAnchor, nil, 0)
+    HUD_SCENE:AddFragment(fragmentFastVolumeAnchor)
+    HUD_UI_SCENE:AddFragment(fragmentFastVolumeAnchor)
+    local fragmentFastVolumePanel = ZO_HUDFadeSceneFragment:New(FastVolumePanel, nil, 0)
+    HUD_SCENE:AddFragment(fragmentFastVolumePanel)
+    HUD_UI_SCENE:AddFragment(fragmentFastVolumePanel)
+
 	--------------
 	-- BINDINGS --
 	--------------
@@ -22,7 +30,6 @@ function FastVolume:Initialize()
 	FastVolumePanelToggle.tooltipText = "Double-click to toggle mute."
 	FastVolumePanelToggle:SetHandler("OnMouseEnter", function(self)
       ZO_Tooltips_ShowTextTooltip(self, TOP, self.tooltipText)
-	  FastVolume:TogglePanel()
     end)
     FastVolumePanelToggle:SetHandler("OnMouseExit", function(self)
        ZO_Tooltips_HideTextTooltip()
