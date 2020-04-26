@@ -85,7 +85,7 @@ end
 function FastVolume:RestoreState()
   -- Restore muted icon
   if(GetSetting(SETTING_TYPE_AUDIO, AUDIO_SETTING_AUDIO_ENABLED) == "0") then
-    FastVolumeSubPanelToggle:SetTexture("FastVolume/media/muted.dds")
+    FastVolumeSubPanelToggle:SetNormalTexture("FastVolume/media/muted.dds")
   end
   -- Restore visibility
   FastVolume:FVSetHidden(self.savedVariables.visibility)
@@ -188,11 +188,7 @@ end
 -- Use a texture to mark which button is currently selected
 function FastVolume:SetSelectedButtonTexture(value)
     local selected_texture = "/esoui/art/buttons/32x32button_genericmouseover.dds"
-    local blank_texture = "/esoui/art/screens_app/interactkeyframe_center.dds"
-
---/esoui/art/inventory/inventory_slot.dds
---/esoui/art/buttons/32x32button_genericmouseover.dds
---
+    local blank_texture = "/esoui/art/auras/aura_warrior.dds"
 
     -- Remove any set textures
     FastVolumeSubPanelButton0:SetNormalTexture(blank_texture)
