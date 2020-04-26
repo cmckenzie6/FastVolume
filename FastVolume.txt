@@ -1,8 +1,8 @@
 ## Title: FastVolume
 ## Author: Colin McKenzie
 ## APIVersion: 100030
-## AddOnVersion: 002
-## Version: 1.1
+## AddOnVersion: 003
+## Version: 1.2
 ## IsLibrary: false
 ## SavedVariables: FastVolumeSavedVariables
 
