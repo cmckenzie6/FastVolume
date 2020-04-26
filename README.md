@@ -11,7 +11,7 @@ For help, see: https://www.esoui.com/forums/faq.php?faq=install#faq_howto_instal
 
 # Usage
 ## General
-1. Hover over the headphone icon to show the volume buttons.
+1. Click on the headphone icon to show the volume buttons.
 1. Click on a button to instantly set the game master volume to that level.
 1. Double click on the headphone icon to toggle mute.
 
